@@ -1,25 +1,25 @@
 USE [master]
 GO
 --
--- Primero hay que creal la base de datos 'DAI-Pizzas'
+-- 
 --
 
-IF NOT EXISTS (SELECT * FROM sys.server_principals WHERE [name] = N'Pizzas')
+IF NOT EXISTS (SELECT * FROM sys.server_principals WHERE [name] = N'Pharmalife')
 BEGIN
 	PRINT 'Creando Login'
-	CREATE LOGIN [Pizzas] WITH 
-		PASSWORD=N'VivaLaMuzza123', 
-		DEFAULT_DATABASE=[DAI-Pizzas], 
+	CREATE LOGIN [Pharmalife] WITH 
+		PASSWORD=N'paton123', 
+		DEFAULT_DATABASE=[PharmaLife], 
 		CHECK_EXPIRATION=OFF, 
 		CHECK_POLICY=OFF
 END
 GO
 
-USE [DAI-Pizzas]
-IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE [name] = N'Pizzas')
+USE [PharmaLife]
+IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE [name] = N'Pharmalife')
 BEGIN
 	PRINT 'Creando User'
-	CREATE USER [Pizzas] FOR LOGIN [Pizzas]
-	ALTER ROLE [db_owner] ADD MEMBER [Pizzas]
+	CREATE USER [Pharmalife] FOR LOGIN [Pharmalife]
+	ALTER ROLE [db_owner] ADD MEMBER [pharmalife]
 END 
 GO

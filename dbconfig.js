@@ -1,7 +1,9 @@
 import 'dotenv/config'
 
 const config = {
-    server : "A-PHZ2-CIDI-024",
+    server : "localhost",
+    user : "Pharmalife",
+    pasword: "paton123",
     database: "PharmaLife",
     options : {
         trustServerCertificate : true,

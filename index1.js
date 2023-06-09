@@ -12,6 +12,7 @@ app.get('/api/PharmaLife/', async (req, res) => {
     let svc = new PharmaService();
     let remedio = await svc.getAll();
     res.send(remedio);
+    console.log("estoy en el get")
 })
 
 app.delete('/api/PharmaLife/:id', async (req, res) => {
