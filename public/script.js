@@ -1,6 +1,6 @@
 function CargarDatos() {
   let inputId = document.querySelector("#idPizza");
-  let url = "http://localhost:3000/api/PharmaLife/" + inputId.value
+  let url = "http://localhost:3000/api/medicamento/" + inputId.value
   let contenedor = document.querySelector("#contenedor");
 
   axios
@@ -18,7 +18,7 @@ function CargarDatos() {
 }
 
 function CargarTodo() {
-    let url = "http://localhost:3000/api/PharmaLife/"
+    let url = "http://localhost:3000/api/medicamento/"
     console.log("cargar todo")
   axios
       .get(url)
@@ -57,9 +57,9 @@ function Insert() {
     "Nombre": nombre
   }
   console.log(cuerpo);
-  console.log("http://localhost:3000/api/PharmaLife", cuerpo)
+  console.log("http://localhost:/api/medicamento", cuerpo)
   axios
-      .post("http://localhost:3000/api/PharmaLife/", cuerpo)
+      .post("http://localhost:3000/api/medicamento/", cuerpo)
       .then((result) => {
           console.log("OK");
           console.log(result.data)
@@ -80,7 +80,7 @@ function Update() {
     nombre: nombre
   }
   console.log(cuerpo);
-  var url='http://localhost:3000/api/PharmaLife/'+id
+  var url='http://localhost:3000/api/medicamento/'+id
   
   axios
       .put(url,cuerpo)
@@ -101,9 +101,9 @@ function Update() {
 function Borrar(id) {
   let nombre = document.getElementById("nombre")
   //let id = document.getElementById("id")
-  console.log("http://localhost:3000/api/PharmaLife/" + id)
+  console.log("http://localhost:3000/api/medicamento/" + id)
   axios
-      .delete("http://localhost:3000/api/PharmaLife/" + id)
+      .delete("http://localhost:3000/api/medicamento/" + id)
       .then((result) => {
           console.log(result.data)
           CargarTodo()

@@ -1,6 +1,5 @@
 import config from "./dbconfig.js";
 import sql from 'mssql';
-import Medicamentos from "./models/Medicamentos";
 import PharmaService from "./services/pharmalife-service";
 import Medicamentos from "./models/Medicamentos.js";
 await testGetAll();

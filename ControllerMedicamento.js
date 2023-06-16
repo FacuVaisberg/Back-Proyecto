@@ -1,22 +1,17 @@
-import express from "express";
-import cors from "cors";
-import PharmaService from "./services/Medicamentos-service.js";
-const app  = express();
-const port = 3000;
+import { Router } from "express";
+import MedicamentosService from "./services/Medicamentos-service.js";
 
-app.use(cors());
-app.use(express.json());
-app.use(express.static('public'));
+const router = Router();
 
-app.get('/api/medicamento/', async (req, res) => {
-    let svc = new PharmaService();
+router.get('', async (req, res) => {
+    let svc = new MedicamentosService();
     let remedio = await svc.getAll();
     res.send(remedio);
     console.log("estoy en el get")
 })
 
-app.delete('/api/medicamento/:id', async (req, res) => {
-    let svc = new PharmaService();
+router.delete('/api/medicamento/:id', async (req, res) => {
+    let svc = new MedicamentosService();
     let remedio = await svc.deleteById(req.params.id);
     res.send(remedio);
 
@@ -24,11 +19,11 @@ app.delete('/api/medicamento/:id', async (req, res) => {
 
 })
 
-app.put('/api/medicamento/:id', async(req, res) => {
+router.put('/api/medicamento/:id', async(req, res) => {
     let cuerpo = req.body;
     console.log('estoy en Update');
     try{
-        let svc = new PharmaService();
+        let svc = new MedicamentosService();
         let remedio  = await svc.update(cuerpo, req.params.id);
         res.send(remedio);
     } catch(error){
@@ -38,11 +33,11 @@ app.put('/api/medicamento/:id', async(req, res) => {
     }
 })
 
-app.post('/api/medicamento/', async(req, res) => {
+router.post('/api/medicamento/', async(req, res) => {
     let  cuerpo = req.body;
     console.log(cuerpo);
     try{
-        let svc = new PharmaService();
+        let svc = new MedicamentosService();
     let remedio  = await svc.insert(cuerpo);
     res.send(remedio);}
     catch(error)
@@ -52,7 +47,5 @@ app.post('/api/medicamento/', async(req, res) => {
     }
 })
 
-app.listen(port,()=>{
-    console.log('listening on port');
-})
+export default router;
 

@@ -2,11 +2,11 @@ import config from "../dbconfig.js";
 import sql from 'mssql';
 
 
-export default class PharmaService 
+export default class MedicamentosService 
     {
         getAll = async ()=> {
             let returnEntity = null;
-            console.log('Estoy en: PharmaService.GetAll');
+            console.log('Estoy en: MedicamentosService.GetAll');
             try {
                 let pool = await sql.connect(config);
                 let result = await pool.request()
@@ -19,7 +19,7 @@ export default class PharmaService
         }
     insert = async (remedio) => {
         let rowsAffected = null;
-        console.log('Estoy en: PharmaciaService.insert(id)');
+        console.log('Estoy en: MedicamentosService.insert(id)');
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
@@ -36,7 +36,7 @@ export default class PharmaService
 
     update = async (remedio, id) => {
         let rowsAffected = null;
-        console.log('Estoy en: PharmaService.update(remedio)');
+        console.log('Estoy en: MedicamentosService.update(remedio)');
         console.log(remedio);
         console.log(id);
         try {
@@ -57,7 +57,7 @@ export default class PharmaService
 
     deleteById = async (id) => {
         let rowsAffected = 0;
-        console.log('Estoy en: PharmaService.deleteById(id)');
+        console.log('Estoy en: MedicamentosService.deleteById(id)');
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()

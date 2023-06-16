@@ -1,36 +1,33 @@
-import express from "express";
-import cors from "cors";
-import PharmaService from "./services/Recetas-service.js";
-const app  = express();
-const port = 3000;
+import { Router } from "express";
 
-app.use(cors());
-app.use(express.json());
-app.use(express.static('public'));
+import Receta from "./services/Recetas-service.js";
+import RecetaService from "./services/Recetas-service.js";
 
-app.get('/api/receta/', async (req, res) => {
-    let svc = new PharmaService();
-    let remedio = await svc.getAll();
-    res.send(remedio);
-    console.log("estoy en el get")
+const router = Router();
+
+router.get('', async (req, res) => {
+    let svc = new RecetaService();
+    let receta = await svc.getAll();
+    res.send(receta);
+    console.log("estoy en el get de receta")
 })
 
-app.delete('/api/receta/:id', async (req, res) => {
-    let svc = new PharmaService();
-    let remedio = await svc.deleteById(req.params.id);
-    res.send(remedio);
+router.delete(':id', async (req, res) => {
+    let svc = new RecetaService();
+    let receta = await svc.deleteById(req.params.id);
+    res.send(receta);
 
 
 
 })
 
-app.put('/api/receta/:id', async(req, res) => {
+router.put('/api/receta/:id', async(req, res) => {
     let cuerpo = req.body;
     console.log('estoy en Update');
     try{
-        let svc = new PharmaService();
-        let remedio  = await svc.update(cuerpo, req.params.id);
-        res.send(remedio);
+        let svc = new RecetaService();
+        let receta  = await svc.update(cuerpo, req.params.id);
+        res.send(receta);
     } catch(error){
         console.log(error);
         res.send("error");
@@ -38,13 +35,13 @@ app.put('/api/receta/:id', async(req, res) => {
     }
 })
 
-app.post('/api/receta/', async(req, res) => {
+router.post('/api/receta/', async(req, res) => {
     let  cuerpo = req.body;
     console.log(cuerpo);
     try{
-        let svc = new PharmaService();
-    let remedio  = await svc.insert(cuerpo);
-    res.send(remedio);}
+        let svc = new RecetaService();
+    let receta  = await svc.insert(cuerpo);
+    res.send(receta);}
     catch(error)
     {
         res.send("error");
@@ -52,6 +49,4 @@ app.post('/api/receta/', async(req, res) => {
     }
 })
 
-app.listen(port,()=>{
-    console.log('listening on port');
-})
+export default router;
