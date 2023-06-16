@@ -1,6 +1,6 @@
 function CargarDatos() {
   let inputId = document.querySelector("#idPizza");
-  let url = "http://localhost:3000/PharmaLife/" + inputId.value
+  let url = "http://localhost:3000/api/PharmaLife/" + inputId.value
   let contenedor = document.querySelector("#contenedor");
 
   axios
@@ -18,8 +18,10 @@ function CargarDatos() {
 }
 
 function CargarTodo() {
+    let url = "http://localhost:3000/api/PharmaLife/"
+    console.log("cargar todo")
   axios
-      .get("http://localhost:3000/api/PharmaLife")
+      .get(url)
       .then((result) => {
           console.log(result.data)
           let arr = result.data
