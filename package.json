@@ -6,7 +6,7 @@
   "scripts": {
     "todo": "node index-select.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "mati": "node index1.js",
+    "mati": "node ControllerMedicamento.js",
     "start": "node server.js"
   },
   "author": "phatu",
@@ -16,7 +16,7 @@
     "axios": "^1.4.0",
     "cors": "^2.8.5",
     "country-currency-map": "^2.1.7",
-    "dotenv": "^16.1.4",
+    "dotenv": "^16.2.0",
     "expres": "^0.0.5",
     "express": "^4.18.2",
     "mssql": "^9.1.1"
