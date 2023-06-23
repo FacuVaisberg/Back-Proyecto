@@ -1,7 +1,7 @@
 import 'dotenv/config'
 
 const config = {
-    server : "localhost",
+    server : "A-PHZ2-CIDI-022",
     user : "Pharmalife",
     password: "paton123",
     database: "PharmaLife",

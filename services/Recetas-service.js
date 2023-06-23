@@ -26,7 +26,7 @@ export default class RecetaService
             .input('pIdReceta' , sql.Int, receta.IdReceta)
             .input('pIdMedicamento' , sql.Int, receta.IdMedicamento)
             .input('pIdMedico' , sql.Int, receta.IdMedico)
-            .input('IdPaciente' , sql.Int, receta.IdPaciente)
+            .input('pIdPaciente' , sql.Int, receta.IdPaciente)
             .input('pIdFarmacia' , sql.Int, receta.IdFarmacia)
             .input('pFechaCreacion' , sql.Date, receta.FechaCreacion)
             .input('pFechaVencimiento' , sql.Date, receta.Fechavencimiento)
@@ -80,7 +80,7 @@ export default class RecetaService
             let pool = await sql.connect(config);
             let result = await pool.request()
                                 .input('pIdReceta', sql.Int, id)
-                                .query('DELETE FROM Receta WHERE id = @pIdReceta');
+                                .query('DELETE FROM Receta WHERE pIdReceta = @pIdReceta');
         rowsAffected = result.rowsAffected;    
         } catch (error) {
             console.log(error);

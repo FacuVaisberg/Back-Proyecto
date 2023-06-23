@@ -5,23 +5,23 @@ import RecetaService from "./services/Recetas-service.js";
 
 const router = Router();
 
-router.get('', async (req, res) => {
+router.get('/', async (req, res) => {
     let svc = new RecetaService();
     let receta = await svc.getAll();
     res.send(receta);
     console.log("estoy en el get de receta")
 })
 
-router.delete(':id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     let svc = new RecetaService();
     let receta = await svc.deleteById(req.params.id);
     res.send(receta);
-
+    console.log("delete")
 
 
 })
 
-router.put('/api/receta/:id', async(req, res) => {
+router.put('/:id', async(req, res) => {
     let cuerpo = req.body;
     console.log('estoy en Update');
     try{
@@ -35,7 +35,7 @@ router.put('/api/receta/:id', async(req, res) => {
     }
 })
 
-router.post('/api/receta/', async(req, res) => {
+router.post('/', async(req, res) => {
     let  cuerpo = req.body;
     console.log(cuerpo);
     try{

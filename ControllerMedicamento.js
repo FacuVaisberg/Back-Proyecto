@@ -3,23 +3,25 @@ import MedicamentosService from "./services/Medicamentos-service.js";
 
 const router = Router();
 
-router.get('', async (req, res) => {
+router.get('/', async (req, res) => {
     let svc = new MedicamentosService();
     let remedio = await svc.getAll();
     res.send(remedio);
     console.log("estoy en el get")
 })
 
-router.delete('/api/medicamento/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     let svc = new MedicamentosService();
+    console.log(req.params.id);
     let remedio = await svc.deleteById(req.params.id);
+
     res.send(remedio);
 
 
 
 })
 
-router.put('/api/medicamento/:id', async(req, res) => {
+router.put('/:id', async(req, res) => {
     let cuerpo = req.body;
     console.log('estoy en Update');
     try{
@@ -33,7 +35,7 @@ router.put('/api/medicamento/:id', async(req, res) => {
     }
 })
 
-router.post('/api/medicamento/', async(req, res) => {
+router.post('/', async(req, res) => {
     let  cuerpo = req.body;
     console.log(cuerpo);
     try{
