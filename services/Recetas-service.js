@@ -23,7 +23,6 @@ export default class RecetaService
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-            .input('pIdReceta' , sql.Int, receta.IdReceta)
             .input('pIdMedicamento' , sql.Int, receta.IdMedicamento)
             .input('pIdMedico' , sql.Int, receta.IdMedico)
             .input('pIdPaciente' , sql.Int, receta.IdPaciente)
@@ -34,9 +33,9 @@ export default class RecetaService
             .input('pObservaciones' , sql.Text, receta.Observaciones)
 
 
-
-                                .query('insert into Receta( IdReceta, IdMedicamento, IdMedico, IdPaciente, IdFarmacia, FechaCreacion, FechaVencimiento, Estado, Observaciones) VALUES (@pIdReceta, @pIdMedicamento, @pIdMedico, @pIdPaciente, @pIdFarmacia, @pFechaCreacion, @pFechaVencimiento, @pEstado, @pObservaciones)');
-        rowsAffected = result.rowsAffected;    
+            .query('insert into Receta(IdMedicamento, IdMedico, IdPaciente, IdFarmacia, FechaCreacion, FechaVencimiento, Estado, Observaciones) VALUES (@pIdMedicamento, @pIdMedico, @pIdPaciente, @pIdFarmacia, @pFechaCreacion, @pFechaVencimiento, @pEstado, @pObservaciones)');
+        
+            rowsAffected = result.rowsAffected;    
         } catch (error) {
             console.log(error); 
         }
@@ -75,12 +74,13 @@ export default class RecetaService
 
     deleteById = async (id) => {
         let rowsAffected = 0;
+        console.log(id);
         console.log('Estoy en: RecetaService.deleteById(id)');
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-                                .input('pIdReceta', sql.Int, id)
-                                .query('DELETE FROM Receta WHERE pIdReceta = @pIdReceta');
+                                .input('pIdReceta', sql.Int, id.IdReceta)
+                                .query('DELETE FROM Receta WHERE IdReceta = @pIdReceta');
         rowsAffected = result.rowsAffected;    
         } catch (error) {
             console.log(error);
