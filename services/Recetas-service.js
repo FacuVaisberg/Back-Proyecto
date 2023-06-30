@@ -75,14 +75,16 @@ export default class RecetaService
     deleteById = async (id) => {
         let rowsAffected = 0;
         console.log(id);
-        console.log('Estoy en: RecetaService.deleteById(id)');
+        console.log('Estoy en: RecetaService.deleteById(id)', id);
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-                                .input('pIdReceta', sql.Int, id.IdReceta)
+                                .input('pIdReceta', sql.Int, id)
                                 .query('DELETE FROM Receta WHERE IdReceta = @pIdReceta');
-        rowsAffected = result.rowsAffected;    
+            rowsAffected = result.rowsAffected;    
+            console.log('Delete OK');
         } catch (error) {
+            console.log('Delete ERROR');
             console.log(error);
         }
         return rowsAffected;
