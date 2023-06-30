@@ -4,16 +4,16 @@ import Receta from "./services/Recetas-service.js";
 import RecetaService from "./services/Recetas-service.js";
 
 const router = Router();
-
+const svc = new RecetaService();
 router.get('/', async (req, res) => {
-    let svc = new RecetaService();
+    
     let receta = await svc.getAll();
     res.send(receta);
     console.log("estoy en el get de receta")
 })
 
 router.delete('/:id', async (req, res) => {
-    let svc = new RecetaService();
+
     let receta = await svc.deleteById(req.params.id);
     res.send(receta);
     console.log("delete")
@@ -21,11 +21,11 @@ router.delete('/:id', async (req, res) => {
 
 })
 
+
 router.put('/:id', async(req, res) => {
     let cuerpo = req.body;
     console.log('estoy en Update');
     try{
-        let svc = new RecetaService();
         let receta  = await svc.update(cuerpo, req.params.id);
         res.send(receta);
     } catch(error){
@@ -39,7 +39,6 @@ router.post('/', async(req, res) => {
     let  cuerpo = req.body;
     console.log(cuerpo);
     try{
-        let svc = new RecetaService();
     let receta  = await svc.insert(cuerpo);
     res.send(receta);}
     catch(error)

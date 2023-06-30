@@ -32,7 +32,6 @@ export default class RecetaService
             .input('pEstado' , sql.Bit, receta.Estado)
             .input('pObservaciones' , sql.Text, receta.Observaciones)
 
-
             .query('insert into Receta(IdMedicamento, IdMedico, IdPaciente, IdFarmacia, FechaCreacion, FechaVencimiento, Estado, Observaciones) VALUES (@pIdMedicamento, @pIdMedico, @pIdPaciente, @pIdFarmacia, @pFechaCreacion, @pFechaVencimiento, @pEstado, @pObservaciones)');
         
             rowsAffected = result.rowsAffected;    
@@ -50,19 +49,17 @@ export default class RecetaService
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-            .input('pIdReceta' , sql.Int, receta.IdReceta)
+            .input('pIdReceta' , sql.Int, id)
             .input('pIdMedicamento' , sql.Int, receta.IdMedicamento)
             .input('pIdMedico' , sql.Int, receta.IdMedico)
-            .input('IdPaciente' , sql.Int, receta.IdPaciente)
+            .input('pIdPaciente' , sql.Int, receta.IdPaciente)
             .input('pIdFarmacia' , sql.Int, receta.IdFarmacia)
             .input('pFechaCreacion' , sql.Date, receta.FechaCreacion)
             .input('pFechaVencimiento' , sql.Date, receta.Fechavencimiento)
             .input('pEstado' , sql.Bit, receta.Estado)
             .input('pObservaciones' , sql.Text, receta.Observaciones)
 
-
-
-                                .query('insert into Receta( IdReceta, IdMedicamento, IdMedico, IdPaciente, IdFarmacia, FechaCreacion, FechaVencimiento, Estado, Observaciones) VALUES (@pIdReceta, @pIdMedicamento, @pIdMedico, @pIdPaciente, @pIdFarmacia, @pFechaCreacion, @pFechaVencimiento, @pEstado, @pObservaciones)');
+            .query('UPDATE Receta SET IdMedicamento=@pIdMedicamento, IdMedico=@pIdMedico, IdPaciente=@pIdPaciente, IdFarmacia=@pIdFarmacia, FechaCreacion=@pFechaCreacion, Fechavencimiento=@pFechaVencimiento, Estado=@pEstado, Observaciones=@pObservaciones WHERE IdReceta=@pIdReceta');
                 
         rowsAffected = result.rowsAffected;    
         } catch (error) {
@@ -75,7 +72,7 @@ export default class RecetaService
     deleteById = async (id) => {
         let rowsAffected = 0;
         console.log(id);
-        console.log('Estoy en: RecetaService.deleteById(id)', id);
+        console.log('Estoy en: RecetaService.deleteById(id)',);
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
