@@ -1,16 +1,17 @@
 import { Router } from "express";
 import MedicamentosService from "./services/Medicamentos-service.js";
+import { Authenticate } from "./common/jwt.strategy.js";
 
 const router = Router();
 
-router.get('/', async (req, res) => {
+router.get('/', Authenticate, async (req, res) => {
     let svc = new MedicamentosService();
     let remedio = await svc.getAll();
     res.send(remedio);
     console.log("estoy en el get")
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', Authenticate, async (req, res) => {
     let svc = new MedicamentosService();
     console.log(req.params.id);
     let remedio = await svc.deleteById(req.params.id);
@@ -21,7 +22,7 @@ router.delete('/:id', async (req, res) => {
 
 })
 
-router.put('/:id', async(req, res) => {
+router.put('/:id', Authenticate,  async(req, res) => {
     let cuerpo = req.body;
     console.log('estoy en Update');
     try{
@@ -35,7 +36,7 @@ router.put('/:id', async(req, res) => {
     }
 })
 
-router.post('/', async(req, res) => {
+router.post('/', Authenticate, async(req, res) => {
     let  cuerpo = req.body;
     console.log(cuerpo);
     try{

@@ -122,11 +122,11 @@ GO
 INSERT [dbo].[Medicamentos] ([IdMedicamentos], [NombreMedicamento]) VALUES (1, N'ibu')
 INSERT [dbo].[Medicamentos] ([IdMedicamentos], [NombreMedicamento]) VALUES (2, N'ssops')
 GO
-INSERT [dbo].[Medico] ([IdUsuario], [Matricula], [Firma]) VALUES (1, 1, NULL)
-INSERT [dbo].[Medico] ([IdUsuario], [Matricula], [Firma]) VALUES (2, 2, NULL)
+INSERT [dbo].[Medico] ([IdUsuario], [Matricula], [Firma]) VALUES (3, 1, NULL)
+INSERT [dbo].[Medico] ([IdUsuario], [Matricula], [Firma]) VALUES (4, 2, NULL)
 GO
-INSERT [dbo].[Paciente] ([IdUsuario], [Direccion], [Dni]) VALUES (1, N'lswl', 1234567)
-INSERT [dbo].[Paciente] ([IdUsuario], [Direccion], [Dni]) VALUES (2, N'xsccn', 1234356)
+INSERT [dbo].[Paciente] ([IdUsuario], [Direccion], [Dni]) VALUES (5, N'lswl', 1234567)
+INSERT [dbo].[Paciente] ([IdUsuario], [Direccion], [Dni]) VALUES (6, N'xsccn', 1234356)
 GO
 INSERT [dbo].[Receta] ([IdReceta], [IdMedicamento], [IdMedico], [IdPaciente], [IdFarmacia], [FechaCreacion], [FechaVencimiento], [Estado], [Observaciones]) VALUES (1, 1, 1, 1, 1, CAST(N'2005-02-01' AS Date), CAST(N'2009-09-09' AS Date), 1, N'pepdleepld')
 INSERT [dbo].[Receta] ([IdReceta], [IdMedicamento], [IdMedico], [IdPaciente], [IdFarmacia], [FechaCreacion], [FechaVencimiento], [Estado], [Observaciones]) VALUES (2, 2, 2, 2, 2, CAST(N'2010-10-10' AS Date), CAST(N'2007-07-07' AS Date), 0, N'dsccd')
@@ -134,8 +134,12 @@ GO
 INSERT [dbo].[Solicitudes] ([IdSolicitud], [IdPaciente], [IdFarmacia], [IdRemedio], [IdReceta], [Precio]) VALUES (1, 1, 1, 1, 1, 34)
 INSERT [dbo].[Solicitudes] ([IdSolicitud], [IdPaciente], [IdFarmacia], [IdRemedio], [IdReceta], [Precio]) VALUES (2, 2, 2, 2, 2, 44)
 GO
-INSERT [dbo].[Usuario] ([IdUsuario], [Apellido], [Telefono], [Mail], [Contraseña], [Nombre]) VALUES (1, N'pewodw', 111344, N'dwpdmojp', N'feiojf', N'pepe')
-INSERT [dbo].[Usuario] ([IdUsuario], [Apellido], [Telefono], [Mail], [Contraseña], [Nombre]) VALUES (2, N'dndnw', 44789, N'dhsakd', N'wnkoi', N'bauti')
+INSERT [dbo].[Usuario] ([IdUsuario], [Apellido], [Telefono], [Mail], [Contraseña], [Nombre]) VALUES (1, N'pewodw F', 111344, N'dwpdmojp', N'feiojf', N'pepe')
+INSERT [dbo].[Usuario] ([IdUsuario], [Apellido], [Telefono], [Mail], [Contraseña], [Nombre]) VALUES (2, N'dndnw F', 44789, N'dhsakd', N'wnkoi', N'bauti')
+INSERT [dbo].[Usuario] ([IdUsuario], [Apellido], [Telefono], [Mail], [Contraseña], [Nombre]) VALUES (3, N'pewodw M', 111344, N'dwpdmojp', N'feiojf', N'pepe')
+INSERT [dbo].[Usuario] ([IdUsuario], [Apellido], [Telefono], [Mail], [Contraseña], [Nombre]) VALUES (4, N'dndnw M', 44789, N'dhsakd', N'wnkoi', N'bauti')
+INSERT [dbo].[Usuario] ([IdUsuario], [Apellido], [Telefono], [Mail], [Contraseña], [Nombre]) VALUES (5, N'pewodw P', 111344, N'dwpdmojp', N'feiojf', N'pepe')
+INSERT [dbo].[Usuario] ([IdUsuario], [Apellido], [Telefono], [Mail], [Contraseña], [Nombre]) VALUES (6, N'dndnw P', 44789, N'dhsakd', N'wnkoi', N'bauti')
 GO
 ALTER TABLE [dbo].[Receta]  WITH CHECK ADD  CONSTRAINT [FK_Receta_Medicamentos] FOREIGN KEY([IdMedicamento])
 REFERENCES [dbo].[Medicamentos] ([IdMedicamentos])
@@ -161,19 +165,4 @@ ALTER TABLE [dbo].[Solicitudes]  WITH CHECK ADD  CONSTRAINT [FK_Solicitudes_Rece
 REFERENCES [dbo].[Receta] ([IdReceta])
 GO
 ALTER TABLE [dbo].[Solicitudes] CHECK CONSTRAINT [FK_Solicitudes_Receta]
-GO
-ALTER TABLE [dbo].[Usuario]  WITH CHECK ADD  CONSTRAINT [FK_Usuario_Farmacia] FOREIGN KEY([IdUsuario])
-REFERENCES [dbo].[Farmacia] ([IdUsuario])
-GO
-ALTER TABLE [dbo].[Usuario] CHECK CONSTRAINT [FK_Usuario_Farmacia]
-GO
-ALTER TABLE [dbo].[Usuario]  WITH CHECK ADD  CONSTRAINT [FK_Usuario_Medico] FOREIGN KEY([IdUsuario])
-REFERENCES [dbo].[Medico] ([IdUsuario])
-GO
-ALTER TABLE [dbo].[Usuario] CHECK CONSTRAINT [FK_Usuario_Medico]
-GO
-ALTER TABLE [dbo].[Usuario]  WITH CHECK ADD  CONSTRAINT [FK_Usuario_Paciente] FOREIGN KEY([IdUsuario])
-REFERENCES [dbo].[Paciente] ([IdUsuario])
-GO
-ALTER TABLE [dbo].[Usuario] CHECK CONSTRAINT [FK_Usuario_Paciente]
 GO
