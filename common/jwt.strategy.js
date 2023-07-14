@@ -3,7 +3,7 @@ import passport from "passport";
 import "dotenv/config";
 
 const opt = {
-    secretOrKey: process.env.AUTHR_H5256_KEY,
+    secretOrKey: process.env.AUTH_HS256_KEY,
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     issuer: `${process.env.AUTH_ISSUER_URL}`,
     algorithms: ["HS256"],

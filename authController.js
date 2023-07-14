@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 
-console.log('process.env.AUTH0_HS256_KEY,', process.env.AUTH0_HS256_KEY)
+console.log('process.env.AUTH0_HS256_KEY,', process.env.AUTH_HS256_KEY)
 
 const getRandomString = () => {
     var result = "";
@@ -23,7 +23,7 @@ const getSignedToken = () => {
             payload: "custom payload",
             userEmail: userMail,
         },
-        process.env.AUTH0_HS256_KEY,
+        process.env.AUTH_HS256_KEY,
         {
             issuer: process.env.AUTH_ISSUER_URL,
             subject: userId,

@@ -1,11 +1,11 @@
 import { Router } from "express";
-
+import { Authenticate } from "./common/jwt.strategy.js";
 import Receta from "./services/Recetas-service.js";
 import RecetaService from "./services/Recetas-service.js";
 
 const router = Router();
 const svc = new RecetaService();
-router.get('/', async (req, res) => {
+router.get('/', Authenticate,async (req, res) => {
     
     let receta = await svc.getAll();
     res.send(receta);
@@ -22,7 +22,7 @@ router.delete('/:id', async (req, res) => {
 })
 
 
-router.put('/:id', async(req, res) => {
+router.put('/:id', Authenticate, async(req, res) => {
     let cuerpo = req.body;
     console.log('estoy en Update');
     try{
@@ -35,7 +35,7 @@ router.put('/:id', async(req, res) => {
     }
 })
 
-router.post('/', async(req, res) => {
+router.post('/', Authenticate, async(req, res) => {
     let  cuerpo = req.body;
     console.log(cuerpo);
     try{
