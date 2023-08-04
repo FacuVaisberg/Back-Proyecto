@@ -23,7 +23,7 @@ export default class UsuarioService
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-            .input('pApellido' , sql.Text, usuario.apellido)
+            .input('pApellido' , sql.Text, usuario.Apellido)
             .input('pTelefono' , sql.Int, usuario.Telefono)
             .input('pMail' , sql.Text, usuario.Mail)
             .input('pContraseña' , sql.Text, usuario.Contraseña)
@@ -32,10 +32,8 @@ export default class UsuarioService
 
             result = await pool.request()
             .query('select max(IdUsuario) as UltimoId from Usuario');
-            let max = result.recordsets[0].UltimoId;
-
             result = await pool.request()
-            .input('pIdUsuario' , sql.Int, max)
+            .input('pIdUsuario' , sql.Int, result.recordset[0].UltimoId)
             .input('pDueñoFarmacia' , sql.Text, usuario.DueñoFarmacia)
             .input('pDireccion' , sql.Text, usuario.Direccion)
             .query('insert into Farmacia(IdUsuario, DueñoFarmacia, Direccion) VALUES (@pIdUsuario, @pDueñoFarmacia, @pDireccion)');            
@@ -58,18 +56,16 @@ export default class UsuarioService
             .input('pContraseña' , sql.Text, usuario.Contraseña)
             .input('pNombre' , sql.Text, usuario.Nombre)
             .query('insert into Usuario(Apellido, Telefono, Mail, Contraseña, Nombre) VALUES (@pApellido, @pTelefono, @pMail, @pContraseña, @pNombre)')
-            console.log("query 1 terminado")
+
             result = await pool.request()
             .query('select max(IdUsuario) as UltimoId from Usuario');
-
-            let max = result.recordset[0].UltimoId;
-            console.log("query 2 terminado "+ max);
+            console.log(result.recordset[0].UltimoId)
             result = await pool.request()
-            .input('pIdUsuario' , sql.Int, max)
+            .input('pIdUsuario' , sql.Int, result.recordset[0].UltimoId)
             .input('pMatricula' , sql.Int, usuario.Matricula)
             .input('pFirma' , sql.Image, usuario.Firma)
             .query('insert into Medico(IdUsuario, Matricula, Firma) VALUES (@pIdUsuario, @pMatricula, @pFirma)');            
-            console.log("query 3 terminado")
+            
             rowsAffected = result.rowsAffected;    
         } catch (error) {
             console.log(error); 
@@ -141,8 +137,7 @@ export default class UsuarioService
             let pool = await sql.connect(config);
             let result = await pool.request()
                                 .input('pIdUsuario', sql.Int, id)
-                                .query('DELETE FROM Usuario WHERE IdUsuario = @pIdUsuario')
-                                .query('DELETE FROM Farmacia WHERE IdUsuario = @pIdUsuario');
+                                .query('DELETE FROM Farmacia WHERE IdUsuario = @pIdUsuario;DELETE FROM Usuario WHERE IdUsuario = @pIdUsuario')
             rowsAffected = result.rowsAffected;    
             console.log('Delete OK');
         } catch (error) {
@@ -160,8 +155,7 @@ export default class UsuarioService
             let pool = await sql.connect(config);
             let result = await pool.request()
                                 .input('pIdUsuario', sql.Int, id)
-                                .query('DELETE FROM Usuario WHERE IdUsuario = @pIdUsuario')
-                                .query('DELETE FROM Paciente WHERE IdUsuario = @pIdUsuario');
+                                .query('DELETE FROM Paciente WHERE IdUsuario = @pIdUsuario; DELETE FROM Usuario WHERE IdUsuario = @pIdUsuario')
             rowsAffected = result.rowsAffected;    
             console.log('Delete OK');
         } catch (error) {
@@ -179,8 +173,7 @@ export default class UsuarioService
             let pool = await sql.connect(config);
             let result = await pool.request()
                                 .input('pIdUsuario', sql.Int, id)
-                                .query('DELETE FROM Usuario WHERE IdUsuario = @pIdUsuario')
-                                .query('DELETE FROM Medico WHERE IdUsuario = @pIdUsuario');
+                                .query('DELETE FROM Medico WHERE IdUsuario = @pIdUsuario; DELETE FROM Usuario WHERE IdUsuario = @pIdUsuario')
             rowsAffected = result.rowsAffected;    
             console.log('Delete OK');
         } catch (error) {

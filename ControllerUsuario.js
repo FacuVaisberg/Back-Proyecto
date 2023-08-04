@@ -11,15 +11,25 @@ router.get('/', Authenticate, async (req, res) => {
     console.log("estoy en el get")
 })
 
-router.delete('/:id', Authenticate, async (req, res) => {
+router.delete('/Farmacia/:id', Authenticate, async (req, res) => {
     let svc = new UsuarioService();
     console.log(req.params.id);
-    let usuario = await svc.deleteById(req.params.id);
-
+    let usuario = await svc.deleteFarmacia(req.params.id);
     res.send(usuario);
+})
 
+router.delete('/Medico/:id', Authenticate, async (req, res) => {
+    let svc = new UsuarioService();
+    console.log(req.params.id);
+    let usuario = await svc.deleteMedico(req.params.id);
+    res.send(usuario);
+})
 
-
+router.delete('/Paciente/:id', Authenticate, async (req, res) => {
+    let svc = new UsuarioService();
+    console.log(req.params.id);
+    let usuario = await svc.deletePaciente(req.params.id);
+    res.send(usuario);
 })
 
 router.put('/:id', Authenticate,  async(req, res) => {
