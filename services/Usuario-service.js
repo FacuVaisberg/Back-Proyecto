@@ -36,9 +36,9 @@ export default class UsuarioService
 
             result = await pool.request()
             .input('pIdUsuario' , sql.Int, max)
-            .input('pNombreDueño' , sql.Text, usuario.NombreDueño)
-            .input('pDireccion' , sql.Int, usuario.Direccion)
-            .query('insert into Farmacia(IdUsuario, NombreDueño, Direccion) VALUES (@pIdUsuario, @pNombreDueño, @pDireccion)');            
+            .input('pDueñoFarmacia' , sql.Text, usuario.DueñoFarmacia)
+            .input('pDireccion' , sql.Text, usuario.Direccion)
+            .query('insert into Farmacia(IdUsuario, DueñoFarmacia, Direccion) VALUES (@pIdUsuario, @pDueñoFarmacia, @pDireccion)');            
             rowsAffected = result.rowsAffected;    
         } catch (error) {
             console.log(error); 
@@ -133,15 +133,54 @@ export default class UsuarioService
     }
 
 
-    deleteById = async (id) => {
+    deleteFarmacia = async (id) => {
         let rowsAffected = 0;
         console.log(id);
-        console.log('Estoy en: UsuarioService.deleteById(id)',);
+        console.log('Estoy en: UsuarioService.deleteFarmacia(id)',);
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
                                 .input('pIdUsuario', sql.Int, id)
-                                .query('DELETE FROM Usuario WHERE IdUsuario = @pIdUsuario');
+                                .query('DELETE FROM Usuario WHERE IdUsuario = @pIdUsuario')
+                                .query('DELETE FROM Farmacia WHERE IdUsuario = @pIdUsuario');
+            rowsAffected = result.rowsAffected;    
+            console.log('Delete OK');
+        } catch (error) {
+            console.log('Delete ERROR');
+            console.log(error);
+        }
+        return rowsAffected;
+    }
+
+    deletePaciente = async (id) => {
+        let rowsAffected = 0;
+        console.log(id);
+        console.log('Estoy en: UsuarioService.deletePaciente(id)',);
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                                .input('pIdUsuario', sql.Int, id)
+                                .query('DELETE FROM Usuario WHERE IdUsuario = @pIdUsuario')
+                                .query('DELETE FROM Paciente WHERE IdUsuario = @pIdUsuario');
+            rowsAffected = result.rowsAffected;    
+            console.log('Delete OK');
+        } catch (error) {
+            console.log('Delete ERROR');
+            console.log(error);
+        }
+        return rowsAffected;
+    }
+
+    deleteMedico = async (id) => {
+        let rowsAffected = 0;
+        console.log(id);
+        console.log('Estoy en: UsuarioService.deleteMedico(id)',);
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                                .input('pIdUsuario', sql.Int, id)
+                                .query('DELETE FROM Usuario WHERE IdUsuario = @pIdUsuario')
+                                .query('DELETE FROM Medico WHERE IdUsuario = @pIdUsuario');
             rowsAffected = result.rowsAffected;    
             console.log('Delete OK');
         } catch (error) {
