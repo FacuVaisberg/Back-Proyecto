@@ -3,6 +3,7 @@ import cors from "cors"
 import MedicamentosRouter from "./ControllerMedicamento.js";
 import RecetasRouter from "./ControllerReceta.js";
 import UsuarioRouter from "./ControllerUsuario.js";
+import SolicitudesRouter from "./ControllerSolicitudes.js";
 import authRouter from "./authController.js";
 import getSignedToken from "./authController.js";
 import passport from 'passport';
@@ -28,6 +29,7 @@ app.post('/login' ,async (req,res) => {
 app.use("/api/medicamento/",MedicamentosRouter);
 app.use("/api/receta/",RecetasRouter);
 app.use("/api/usuario/",UsuarioRouter);
+app.use("/api/solicitud/",SolicitudesRouter);
 
 
 app.use(express.static('public'));

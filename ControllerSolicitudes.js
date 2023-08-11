@@ -1,41 +1,24 @@
 import { Router } from "express";
 import { Authenticate } from "./common/jwt.strategy.js";
-import Receta from "./services/Recetas-service.js";
-import RecetaService from "./services/Recetas-service.js";
+import SolicitudesService from "./services/Solicitudes-service.js";
 
 const router = Router();
-const svc = new RecetaService();
 router.get('/', Authenticate,async (req, res) => {
-    
-    let receta = await svc.getAllDisponibles();
+    let svc = new SolicitudesService();
+    let receta = await svc.getAll();
     res.send(receta);
-    console.log("estoy en el get de receta")
+    console.log("estoy en el get de solicitudes")
 })
 
 router.delete('/:id', async (req, res) => {
-
+    let svc = new SolicitudesService();
     let receta = await svc.deleteById(req.params.id);
     res.send(receta);
     console.log("delete")
-
-
-})
-
-
-router.put('/:id', Authenticate, async(req, res) => {
-    let cuerpo = req.body;
-    console.log('estoy en Update');
-    try{
-        let receta  = await svc.update(cuerpo, req.params.id);
-        res.send(receta);
-    } catch(error){
-        console.log(error);
-        res.send("error");
-
-    }
 })
 
 router.post('/', Authenticate, async(req, res) => {
+    let svc = new SolicitudesService();
     let  cuerpo = req.body;
     console.log(cuerpo);
     try{

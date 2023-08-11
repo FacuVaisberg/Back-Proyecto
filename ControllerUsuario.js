@@ -3,7 +3,6 @@ import UsuarioService from "./services/Usuario-service.js";
 import { Authenticate } from "./common/jwt.strategy.js";
 
 const router = Router();
-
 router.get('/', Authenticate, async (req, res) => {
     let svc = new UsuarioService();
     let usuario = await svc.getAll();

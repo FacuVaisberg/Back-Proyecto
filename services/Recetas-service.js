@@ -4,13 +4,13 @@ import sql from 'mssql';
 
 export default class RecetaService
     {
-        getAll = async ()=> {
+        getAllDisponibles = async ()=> {
             let returnEntity = null;
             console.log('Estoy en: RecetaService.GetAll');
             try {
                 let pool = await sql.connect(config);
                 let result = await pool.request()
-                .query('select * from Receta');
+                .query('select * from receta where IdReceta not in (select IdReceta from solicitudes)');
                 returnEntity = result.recordsets[0];
             } catch (error) {
                 console.log(error)
