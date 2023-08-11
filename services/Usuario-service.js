@@ -88,14 +88,11 @@ export default class UsuarioService
 
             result = await pool.request()
             .query('select max(IdUsuario) as UltimoId from Usuario');
-
-
-            let max = result.recordsets[0].UltimoId;
-
+            console.log()
             result = await pool.request()
-            .input('pIdUsuario' , sql.Int, max)
+            .input('pIdUsuario' , sql.Int,  result.recordset[0].UltimoId)
             .input('pDireccion' , sql.Text, usuario.Direccion)
-            .input('pFirma' , sql.Int, usuario.Dni)
+            .input('pDni' , sql.Int, usuario.Dni)
             .query('insert into Paciente(IdUsuario, Direccion, Dni) VALUES (@pIdUsuario, @pDireccion, @pDni)');            
             rowsAffected = result.rowsAffected;    
         } catch (error) {
