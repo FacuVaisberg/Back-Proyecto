@@ -29,7 +29,8 @@ export default class MedicamentosService
                     .query('insert into Medicamentos(IdMedicamentos,NombreMedicamento) VALUES ( @pIdMedicamentos,@pNombreMedicamento)');
             rowsAffected = result.rowsAffected;    
             } catch (error) {
-                console.log(error); 
+                //console.log(error);
+                console.log(IdMedicamentos.value); 
             }
             return rowsAffected;
         }
