@@ -4,7 +4,29 @@ import sql from 'mssql';
 
 export default class UsuarioService
     {
-        getAll = async ()=> {
+
+    getByEmailPassword = async (email, password)=> {
+        let returnEntity = null;
+        console.log('Estoy en: UsuarioService.getByEmailPassowrd');
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+            .input('pEmail' , sql.VarChar, email)
+            .input('pPassword' , sql.VarChar, password)
+            .query(`
+                SELECT * 
+                FROM Usuario 
+                WHERE  Mail = @pEmail
+                AND  Contraseña = @pPassword
+            `)
+            returnEntity = result.recordsets[0][0];
+        } catch (error) {
+            console.log(error)
+        }
+        return returnEntity;
+    }
+
+    getAll = async ()=> {
             let returnEntity = null;
             console.log('Estoy en: UsuarioService.GetAll');
             try {

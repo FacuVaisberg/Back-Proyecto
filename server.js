@@ -9,6 +9,8 @@ import getSignedToken from "./authController.js";
 import passport from 'passport';
 import { jwtStrategy } from './common/jwt.strategy.js';
 import { Authenticate } from "./common/jwt.strategy.js";
+import UsuarioService from "./services/Usuario-service.js";
+import getByEmailPassword from "./services/Usuario-service.js"
 
 const app  = express(); 
 const port = 3000; 
@@ -21,9 +23,21 @@ app.use("/api/auth/",authRouter);
 
 
 app.post('/login' ,async (req,res) => {
-    const token = getSignedToken();
-    return res.status(200).json(token);
-})
+    let email = req.body.email;
+    let pws = req.body.password;
+    let svc = new UsuarioService();
+
+        const usuario = await svc.getByEmailPassword(email,pws)
+        if (usuario != null){
+            const token = getSignedToken();
+            return res.status(200).json(token);
+        }
+         else{
+        res.status(401).send('Los datos no son validos'); 
+    }
+}    
+)
+
 
 
 app.use("/api/medicamento/",MedicamentosRouter);
