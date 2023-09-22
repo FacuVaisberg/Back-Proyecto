@@ -35,7 +35,7 @@ router.put('/:id', Authenticate, async(req, res) => {
     }
 })
 
-router.post('/', Authenticate, async(req, res) => {
+router.post('/', async(req, res) => {
     let  cuerpo = req.body;
     console.log(cuerpo);
     try{
