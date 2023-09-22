@@ -1,13 +1,19 @@
 import { Router } from "express";
 import UsuarioService from "./services/Usuario-service.js";
 import { Authenticate } from "./common/jwt.strategy.js";
-
 const router = Router();
-router.get('/', async (req, res) => {
+router.get('/', Authenticate, async (req, res) => {
     let svc = new UsuarioService();
     let usuario = await svc.getAll();
     res.send(usuario);
     console.log("estoy en el get")
+})
+
+router.get('/Medico/:id', Authenticate, async (req, res) => {
+    let svc = new UsuarioService();
+    let usuario = await svc.getMedicoById(req.params.id);
+    res.send(usuario);
+    console.log("estoy en el getMedicoById")
 })
 
 router.delete('/Farmacia/:id', Authenticate, async (req, res) => {

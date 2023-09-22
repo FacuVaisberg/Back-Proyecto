@@ -20,7 +20,23 @@ export default class UsuarioService
                 AND  Contraseña = @pPassword
             `)
             returnEntity = result.recordsets[0][0];
-        } catch (error) {
+            } catch (error) {
+            console.log(error)
+        }
+        return returnEntity;
+    }
+
+    getMedicoById = async (id)=> {
+        let returnEntity = null;
+        console.log('Estoy en: UsuarioService.getMedicoById');
+        try {
+            console.log(id);
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+            .input('pIdUsuario' , sql.Int, id)
+            .query(`SELECT * FROM Medico M INNER JOIN Usuario U  ON U.IdUsuario = M.IdUsuario WHERE  M.IdUsuario = @pIdUsuario`)
+            returnEntity = result.recordsets[0][0];
+            } catch (error) {
             console.log(error)
         }
         return returnEntity;
