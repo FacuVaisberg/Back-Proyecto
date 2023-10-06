@@ -5,7 +5,7 @@ import RecetaService from "./services/Recetas-service.js";
 
 const router = Router();
 const svc = new RecetaService();
-router.get('/', Authenticate,async (req, res) => {
+router.get('/',async (req, res) => {
     
     let receta = await svc.getAllDisponibles();
     res.send(receta);
