@@ -11,6 +11,8 @@ export default class RecetaService
                 let pool = await sql.connect(config);
                 let result = await pool.request()
                 .query('select * from receta where IdReceta not in (select IdReceta from solicitudes)');
+                result = await pool.request()
+                .query('SELECT M.NombreMedicamento, UM.Nombre as NombreMedico, UF.Nombre as NombreFarmacia, UP.Nombre as NombrePaciente FROM Receta R INNER JOIN Medicamentos M ON R.IdMedicamento = M.IdMedicamentos INNER JOIN Usuario UM ON R.IdMedico = UM.IdUsuario   INNER JOIN Usuario UF ON R.IdFarmacia = UF.IdUsuario   INNER JOIN Usuario UP ON R.IdPaciente = UP.IdUsuario   WHERE R.IdMedico=@pMedico')
                 returnEntity = result.recordsets[0];
             } catch (error) {
                 console.log(error)
