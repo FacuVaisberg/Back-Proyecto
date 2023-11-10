@@ -4,7 +4,7 @@ import sql from 'mssql';
 
 export default class RecetaService
     {
-        getAllDisponibles = async ()=> {
+        getAllDisponibles = async (id)=> {
             let returnEntity = null;
             console.log('Estoy en: RecetaService.GetAll');
             try {

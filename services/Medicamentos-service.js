@@ -4,19 +4,20 @@ import sql from 'mssql';
 
 export default class MedicamentosService 
     {
-        getAll = async ()=> {
+        getAll = async (name)=> {
             let returnEntity = null;
             console.log('Estoy en: MedicamentosService.GetAll');
             try {
                 let pool = await sql.connect(config);
                 let result = await pool.request()
-                .query('select * from Medicamentos');
+                .query('SELECT NombreMedicamento FROM Medicamentos');
                 returnEntity = result.recordsets[0];
             } catch (error) {
                 console.log(error)
             }
             return returnEntity;
         }
+
         insert = async (remedio) => {
             let rowsAffected = null;
             console.log('Estoy en: MedicamentosService.insert(id)');

@@ -55,4 +55,23 @@ export default class SolicitudesService
         }
         return rowsAffected;
     }
-}
+
+    aceptada = async (id) => {
+        let rowsAffected = 0;
+        console.log(id);
+        console.log("estoy en soli.Service.aceptada");
+        try{
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .input('pIdSolicitud', sql.Int, id)
+                .query('')
+
+                rowsAffected = result.rowsAffected;    
+                console.log('Delete OK');
+            } catch (error) {
+                console.log('Delete ERROR');
+                console.log(error);
+            }
+            return rowsAffected;
+        }
+    }
