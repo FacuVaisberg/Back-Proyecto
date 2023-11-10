@@ -4,7 +4,7 @@ import { Authenticate } from "./common/jwt.strategy.js";
 
 const router = Router();
 
-router.get('/', Authenticate, async (req, res) => {
+router.get('/', async (req, res) => {
     let svc = new MedicamentosService();
     let remedio = await svc.getAll();
     res.send(remedio);
