@@ -10,7 +10,7 @@ export default class MedicamentosService
             try {
                 let pool = await sql.connect(config);
                 let result = await pool.request()
-                .query('SELECT NombreMedicamento FROM Medicamentos');
+                .query('SELECT NombreMedicamento.Medicamentos FROM Medicamentos');
                 returnEntity = result.recordsets[0];
             } catch (error) {
                 console.log(error)
