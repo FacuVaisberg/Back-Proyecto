@@ -10,11 +10,11 @@ export default class RecetaService
             try {
                 let pool = await sql.connect(config);
                 let result = await pool.request()
-                .query('SELECT * FROM Receta');
+                .query('select * from Receta where IdReceta not in (select IdReceta from Solicitudes)');
                 result = await pool.request()
-                //.query('SELECT M.NombreMedicamento, UM.Nombre as NombreMedico, UF.Nombre as NombreFarmacia, UP.Nombre as NombrePaciente, FechaCreacion, P.Direccion, P.Dni, U.Telefono FROM Receta R INNER JOIN Medicamentos M ON R.IdMedicamento = M.IdMedicamentos INNER JOIN Usuario UM ON R.IdMedico = UM.IdUsuario INNER JOIN Usuario UF ON R.IdFarmacia = UF.IdUsuario INNER JOIN Usuario UP ON R.IdPaciente = UP.IdUsuario INNER JOIN Paciente P ON P.IdUsuario = UP.IdUsuario INNER JOIN Usuario U  ON U.IdUsuario = UP.IdUsuario')
-                //returnEntity = result.recordsets[0];
-                //console.log(returnEntity)
+                .query('SELECT M.NombreMedicamento, UM.Nombre as NombreMedico, UF.Nombre as NombreFarmacia, UP.Nombre as NombrePaciente, FechaCreacion, P.Direccion, P.Dni, U.Telefono FROM Receta R INNER JOIN Medicamentos M ON R.IdMedicamento = M.IdMedicamentos INNER JOIN Usuario UM ON R.IdMedico = UM.IdUsuario INNER JOIN Usuario UF ON R.IdFarmacia = UF.IdUsuario INNER JOIN Usuario UP ON R.IdPaciente = UP.IdUsuario INNER JOIN Paciente P ON P.IdUsuario = UP.IdUsuario INNER JOIN Usuario U  ON U.IdUsuario = UP.IdUsuario')
+                returnEntity = result.recordsets[0];
+                console.log(returnEntity)
             } catch (error) {
                 console.log(error)
             }
