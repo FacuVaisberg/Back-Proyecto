@@ -10,7 +10,7 @@ export default class SolicitudesService
             try {
                 let pool = await sql.connect(config);
                 let result = await pool.request()
-                .query('select * from Solicitudes WHERE Fecha = 0');
+                .query('SELECT M.NombreMedicamento, M.IdMedicamentos as IdRemedio, UP.Nombre, UP.IdUsuario AS IdPaciente, UF.Nombre, UF.IdUsuario AS IdFarmacia FROM Solicitudes S INNER JOIN Medicamentos M ON S.IdRemedio = M.IdMedicamentos INNER JOIN Usuario UF ON S.IdFarmacia = UF.IdUsuario INNER JOIN Usuario UP ON S.IdPaciente = UP.IdUsuario');
                 returnEntity = result.recordsets[0];
             } catch (error) {
                 console.log(error)
@@ -29,7 +29,7 @@ export default class SolicitudesService
             .input('pIdReceta' , sql.Int, soli.IdReceta)
             .input('pPrecio' , sql.Int, soli.Precio)
 
-            .query('SELECT M.NombreMedicamento, UP.Nombre, UF.Nombre FROM Solicitudes S INNER JOIN Medicamentos M ON S.IdRemedio = M.IdMedicamentos INNER JOIN Usuario UF ON S.IdFarmacia = UF.IdUsuario INNER JOIN Usuario UP ON S.IdPaciente = UP.IdUsuario');
+            .query('insert into Solicitudes(IdMedicamento, IdPaciente, IdFarmacia, IdReceta, Precio) VALUES (@pIdMedicamento, @pIdPaciente, @pIdFarmacia, @pIdReceta, @pPrecio)');
         
             rowsAffected = result.rowsAffected;    
         } catch (error) {
