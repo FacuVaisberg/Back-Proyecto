@@ -31,7 +31,7 @@ router.post('/', Authenticate, async(req, res) => {
     }
 })
 
-app.put('/aceptada/' ,async (req,res) => {
+router.put('/aceptada/' ,async (req,res) => {
     let fecha = req.body.Fecha;
     let id = req.body.id
     let svc = new SolicitudesService();
