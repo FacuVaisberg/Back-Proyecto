@@ -10,7 +10,7 @@ export default class SolicitudesService
             try {
                 let pool = await sql.connect(config);
                 let result = await pool.request()
-                .query('select * from Solicitudes');
+                .query('select * from Solicitudes WHERE Fecha = 0');
                 returnEntity = result.recordsets[0];
             } catch (error) {
                 console.log(error)
@@ -23,13 +23,13 @@ export default class SolicitudesService
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-            .input('pIdRemedio' , sql.Int, soli.IdRemedio)
+            .input('pIdMedicamento' , sql.Int, soli.IdMedicamento)
             .input('pIdPaciente' , sql.Int, soli.IdPaciente)
             .input('pIdFarmacia' , sql.Int, soli.IdFarmacia)
             .input('pIdReceta' , sql.Int, soli.IdReceta)
             .input('pPrecio' , sql.Int, soli.Precio)
 
-            .query('insert into Solicitudes(IdRemedio, IdPaciente, IdFarmacia, IdReceta, Precio) VALUES (@pIdRemedio, @pIdPaciente, @pIdFarmacia, @pIdReceta, @pPrecio)');
+            .query('SELECT M.NombreMedicamento, UP.Nombre, UF.Nombre FROM Solicitudes S INNER JOIN Medicamentos M ON S.IdRemedio = M.IdMedicamentos INNER JOIN Usuario UF ON S.IdFarmacia = UF.IdUsuario INNER JOIN Usuario UP ON S.IdPaciente = UP.IdUsuario');
         
             rowsAffected = result.rowsAffected;    
         } catch (error) {
@@ -64,7 +64,8 @@ export default class SolicitudesService
             let pool = await sql.connect(config);
             let result = await pool.request()
                 .input('pIdSolicitud', sql.Int, id)
-                .query('')
+                .input('pFecha', sql.Bit, Fecha)
+                .query('Update Solicitudes set Fecha = 1 WHERE IdSolicitud = @pIdSolicitud')
 
                 rowsAffected = result.rowsAffected;    
                 console.log('Delete OK');
