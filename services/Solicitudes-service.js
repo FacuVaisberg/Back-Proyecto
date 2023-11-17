@@ -23,13 +23,12 @@ export default class SolicitudesService
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-            .input('pIdMedicamento' , sql.Int, soli.IdMedicamento)
+            .input('pIdRemedio' , sql.Int, soli.IdRemedio)
             .input('pIdPaciente' , sql.Int, soli.IdPaciente)
             .input('pIdFarmacia' , sql.Int, soli.IdFarmacia)
-            .input('pIdReceta' , sql.Int, soli.IdReceta)
             .input('pPrecio' , sql.Int, soli.Precio)
 
-            .query('insert into Solicitudes(IdMedicamento, IdPaciente, IdFarmacia, IdReceta, Precio) VALUES (@pIdMedicamento, @pIdPaciente, @pIdFarmacia, @pIdReceta, @pPrecio)');
+            .query('insert into Solicitudes(IdRemedio, IdPaciente, IdFarmacia, IdReceta, Precio) VALUES (@pIdRemedio, @pIdPaciente, @pIdFarmacia, @pPrecio)');
         
             rowsAffected = result.rowsAffected;    
         } catch (error) {
