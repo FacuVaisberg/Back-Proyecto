@@ -26,9 +26,10 @@ export default class SolicitudesService
             .input('pIdRemedio' , sql.Int, soli.IdRemedio)
             .input('pIdPaciente' , sql.Int, soli.IdPaciente)
             .input('pIdFarmacia' , sql.Int, soli.IdFarmacia)
+            .input('pIdReceta' , sql.Int, soli.IdReceta)
             .input('pPrecio' , sql.Int, soli.Precio)
 
-            .query('insert into Solicitudes(IdRemedio, IdPaciente, IdFarmacia, IdReceta, Precio) VALUES (@pIdRemedio, @pIdPaciente, @pIdFarmacia, @pPrecio)');
+            .query('insert into Solicitudes(IdRemedio, IdPaciente, IdFarmacia, IdReceta, Precio) VALUES (@pIdRemedio, @pIdPaciente, @pIdFarmacia, @pIdReceta, @pPrecio)');
         
             rowsAffected = result.rowsAffected;    
         } catch (error) {
