@@ -4,7 +4,7 @@ import sql from 'mssql';
 
 export default class RecetaService
     {
-        getAllDisponibles = async (id)=> {
+    getAllDisponibles = async (id)=> {
             let returnEntity = null;
             console.log('Estoy en: RecetaService.GetAll');
             try {
@@ -89,4 +89,20 @@ export default class RecetaService
         }
         return rowsAffected;
     }
+
+    getUltimo = async ()=> {
+        let returnEntity = null;
+        console.log('Estoy en: RecetaService.GetAll');
+        try {
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+                .query('SElect top 1 IdReceta FROM Receta order by IdReceta desc');
+            returnEntity = result.recordsets[0][0];
+            console.log(returnEntity)
+        } catch (error) {
+            console.log(error)
+        }
+        return returnEntity;
+    }
+
 }
