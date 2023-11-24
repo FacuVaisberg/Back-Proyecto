@@ -45,7 +45,7 @@ export default class SolicitudesService
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-                                .input('pIdSolicitud', sql.Int, id)
+                                .input('pIdSolicitud', sql.Int, id.IdSolicitud)
                                 .query('DELETE FROM Solicitudes WHERE IdSolicitud = @pIdSolicitud');
             rowsAffected = result.rowsAffected;    
             console.log('Delete OK');
