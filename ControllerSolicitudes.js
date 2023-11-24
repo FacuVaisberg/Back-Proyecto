@@ -3,7 +3,7 @@ import { Authenticate } from "./common/jwt.strategy.js";
 import SolicitudesService from "./services/Solicitudes-service.js";
 
 const router = Router();
-router.get('/', Authenticate,async (req, res) => {
+router.get('/',async (req, res) => {
     let svc = new SolicitudesService();
     let receta = await svc.getAll();
     res.send(receta);
@@ -17,7 +17,7 @@ router.delete('/:id', async (req, res) => {
     console.log("delete")
 })
 
-router.post('/', Authenticate, async(req, res) => {
+router.post('/', async(req, res) => {
     let svc = new SolicitudesService();
     let  cuerpo = req.body;
     console.log(cuerpo);
