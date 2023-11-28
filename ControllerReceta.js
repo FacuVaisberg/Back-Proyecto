@@ -39,25 +39,25 @@ router.put('/:id', Authenticate, async(req, res) => {
 
 router.post('/', async(req, res) => {
     let  cuerpo = req.body;
-    console.log(cuerpo);
+    console.log('ControllerReceta.post ', cuerpo);
     try{
-    let receta  = await svc.insert(cuerpo);
+        let receta  = await svc.insert(cuerpo);
 
-    let ultimo   = await svc.getUltimo();
+        let ultimo   = await svc.getUltimo();
+        console.log('ultimo ', ultimo);
 
+        let  cuerpoSolicitud = {
+            IdRemedio : cuerpo.IdMedicamento,
+            IdPaciente: cuerpo.IdPaciente, 
+            IdFarmacia: cuerpo.IdFarmacia,
+            IdReceta: ultimo.IdReceta,
+        }
+        console.log('cuerpoSolicitud ', cuerpoSolicitud);
+        let soli  = await svcSolicitud.insert(cuerpoSolicitud)
 
-    let  cuerpoSolicitud = {
-        IdRemedio : cuerpo.IdMedicamento,
-        IdPaciente: cuerpo.IdPaciente, 
-        IdFarmacia: cuerpo.IdFarmacia,
-        IdReceta: ultimo,
-    }
+        console.log('soli ', soli);
 
-    let soli  = await svcSolicitud.insert(cuerpoSolicitud)
-
-
-
-    res.send(receta);}
+        res.send(receta);}
     catch(error)
     {
         res.send("error");
