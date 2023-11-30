@@ -77,7 +77,7 @@ export default class SolicitudesService
             .input('pIdReceta' , sql.Int, soli.IdReceta)
             .input('pPrecio' , sql.Int, soli.Precio)
 
-            .query('insert into Solicitudes(IdRemedio, IdPaciente, IdFarmacia, IdReceta, Precio) VALUES (@pIdRemedio, @pIdPaciente, @pIdFarmacia, @pIdReceta, @pPrecio)');
+            .query('insert into Solicitudes(IdRemedio, IdPaciente, IdFarmacia, IdReceta, Precio, Fecha) VALUES (@pIdRemedio, @pIdPaciente, @pIdFarmacia, @pIdReceta, @pPrecio, 0)');
         
             rowsAffected = result.rowsAffected;    
         } catch (error) {
