@@ -25,7 +25,7 @@ router.get('/',async (req, res) => {
     console.log("estoy en el get de receta")
 })
 
-router.delete('/:id', Authenticate, async (req, res) => {
+router.delete('/:id', async (req, res) => {
 
     let receta = await svc.deleteById(req.params.id);
     res.send(receta);
