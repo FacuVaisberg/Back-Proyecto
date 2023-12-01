@@ -46,17 +46,6 @@ router.post('/', async(req, res) => {
         let ultimo   = await svc.getUltimo();
         console.log('ultimo ', ultimo);
 
-        let  cuerpoSolicitud = {
-            IdRemedio : cuerpo.IdMedicamento,
-            IdPaciente: cuerpo.IdPaciente, 
-            IdFarmacia: cuerpo.IdFarmacia,
-            IdReceta: ultimo.IdReceta,
-        }
-        console.log('cuerpoSolicitud ', cuerpoSolicitud);
-        let soli  = await svcSolicitud.insert(cuerpoSolicitud)
-
-        console.log('soli ', soli);
-
         res.send(receta);}
     catch(error)
     {
