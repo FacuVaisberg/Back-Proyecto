@@ -4,6 +4,23 @@ import sql from 'mssql';
 
 export default class RecetaService
     {
+
+        getById = async (id)=> {
+            let returnEntity = null;
+            console.log('Estoy en: RecetaService.getById');
+            try {
+                console.log(id);
+                let pool = await sql.connect(config);
+                let result = await pool.request()
+                .input('pId' , sql.Int, id)
+                .query(`SELECT * FROM Receta WHERE IdReceta = @pId`)
+                returnEntity = result.recordsets[0][0];
+            } catch (error) {
+                console.log(error)
+            }
+            return returnEntity;
+        }
+
     getAllDisponibles = async (id)=> {
             let returnEntity = null;
             console.log('Estoy en: RecetaService.GetAll');

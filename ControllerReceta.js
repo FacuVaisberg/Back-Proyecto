@@ -6,7 +6,13 @@ import SolicitudService from "./services/Solicitudes-service.js";
 
 const router = Router();
 const svc = new RecetaService();
-const svcSolicitud = new SolicitudService();
+
+router.get('/:id', async (req, res) => {
+    let receta = await svc.getById(req.params.id);
+    res.send(receta);
+    console.log("estoy en el get by id de receta")
+})
+
 router.get('/',async (req, res) => {
     
     let receta = await svc.getAllDisponibles();

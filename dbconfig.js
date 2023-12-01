@@ -1,8 +1,8 @@
 import 'dotenv/config'
 
 const config = {
-    server : "SQL5111.site4now.net",
-    //server : "localhost",
+    //server : "SQL5111.site4now.net",
+    server : "localhost",
     user : "db_aa05c4_pharmalife_admin",
     password: "paton123",
     database: "db_aa05c4_pharmalife",
