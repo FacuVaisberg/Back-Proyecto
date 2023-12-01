@@ -5,21 +5,7 @@ import sql from 'mssql';
 export default class SolicitudesService
     {
 
-        getByIdReceta = async (id)=> {
-            let returnEntity = null;
-            console.log('Estoy en: SolicitudesService.getByIdReceta');
-            try {
-                console.log(id);
-                let pool = await sql.connect(config);
-                let result = await pool.request()
-                .input('pIdReceta' , sql.Int, id)
-                .query(`SELECT * FROM Solicitudes WHERE IdReceta = @pIdReceta`)
-                returnEntity = result.recordsets[0][0];
-            } catch (error) {
-                console.log(error)
-            }
-            return returnEntity;
-        }
+        
 
 
     getAll = async ()=> {

@@ -4,12 +4,7 @@ import SolicitudesService from "./services/Solicitudes-service.js";
 
 const router = Router();
 
-router.get('/:id', async (req, res) => {
-    let svc = new SolicitudesService();
-    let entidad = await svc.getByIdReceta(req.params.id);
-    res.send(entidad);
-    console.log("estoy en el getByIdReceta")
-})
+
 
 router.get('/', async (req, res) => {
     let svc = new SolicitudesService();

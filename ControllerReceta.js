@@ -12,7 +12,12 @@ router.get('/:id', async (req, res) => {
     res.send(receta);
     console.log("estoy en el get by id de receta")
 })
-
+router.get('/:id', async (req, res) => {
+    let svc = new RecetaService();
+    let entidad = await svc.getByIdReceta(req.params.id);
+    res.send(entidad);
+    console.log("estoy en el getByIdReceta")
+})
 router.get('/',async (req, res) => {
     
     let receta = await svc.getAllDisponibles();

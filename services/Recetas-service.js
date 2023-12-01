@@ -86,7 +86,21 @@ export default class RecetaService
         }
         return rowsAffected;
     }
-
+    getByIdReceta = async (id)=> {
+        let returnEntity = null;
+        console.log('Estoy en: recetaService.getByIdReceta');
+        try {
+            console.log(id);
+            let pool = await sql.connect(config);
+            let result = await pool.request()
+            .input('pIdReceta' , sql.Int, id)
+            .query(`SELECT * FROM Receta WHERE IdReceta = @pIdReceta`)
+            returnEntity = result.recordsets[0][0];
+        } catch (error) {
+            console.log(error)
+        }
+        return returnEntity;
+    }
 
     deleteById = async (id) => {
         let rowsAffected = 0;
