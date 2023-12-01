@@ -28,7 +28,7 @@ export default class SolicitudesService
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-            .query('SELECT IdSolicitud, Fecha, M.NombreMedicamento, M.IdMedicamentos as IdRemedio, UP.Nombre, UP.IdUsuario AS IdPaciente, UF.Nombre, UF.IdUsuario AS IdFarmacia FROM Solicitudes S INNER JOIN Medicamentos M ON S.IdRemedio = M.IdMedicamentos INNER JOIN Usuario UF ON S.IdFarmacia = UF.IdUsuario INNER JOIN Usuario UP ON S.IdPaciente = UP.IdUsuario WHERE Fecha=0');
+            .query('SELECT IdSolicitud, Fecha, M.NombreMedicamento, M.IdMedicamentos as IdRemedio, UP.Nombre, UP.IdUsuario AS IdPaciente, UF.Nombre, UF.IdUsuario AS IdFarmacia FROM Solicitudes S INNER JOIN Medicamentos M ON S.IdRemedio = M.IdMedicamentos INNER JOIN Usuario UF ON S.IdFarmacia = UF.IdUsuario INNER JOIN Usuario UP ON S.IdPaciente = UP.IdUsuario');
             returnEntity = result.recordsets[0];
         } catch (error) {
             console.log(error)
