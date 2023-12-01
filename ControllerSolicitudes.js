@@ -52,12 +52,11 @@ router.post('/', async(req, res) => {
     }
 })
 
-router.put('/aceptada/' ,async (req,res) => {
+router.put('/aceptada/:id' ,async (req,res) => {
     let fecha = req.body.Fecha;
     let id = req.body.id
     let svc = new SolicitudesService();
-
-        const value = await svc.aceptada(fecha, id)
+    const res = await svc.aceptada(fecha, id)
 }  
 )
 
